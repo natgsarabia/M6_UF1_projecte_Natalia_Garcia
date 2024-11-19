@@ -128,6 +128,13 @@ function crearTarjetas(filosofos) {
         
         tarjeta.append(habilidades);
 
+        // Añadimos botón eliminar tarjeta
+        let botonEliminar = document.createElement('div');
+        botonEliminar.innerHTML='&#x2716';
+        botonEliminar.classList.add('botonEliminar');
+        botonEliminar.addEventListener('click', eliminarTarjeta);
+        tarjeta.append(botonEliminar);
+
         // Añadimos tarjeta creada al contenedor de tarjetas
         let contenedor = document.querySelector('.cards-container');
         contenedor.append(tarjeta);
@@ -135,6 +142,7 @@ function crearTarjetas(filosofos) {
 }
 
 function eliminarTarjeta() {
+   this.parentNode.remove();
 }
 
 function ordenarNombreAZ() {
