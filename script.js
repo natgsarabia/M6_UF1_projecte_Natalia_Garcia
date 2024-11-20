@@ -5,6 +5,11 @@ window.onload = () => {
     // Crear handlers para los botones de control
     let botonCrearTarjeta = document.querySelector('.create-btn');
     botonCrearTarjeta.addEventListener('click',crearNuevaTarjeta);
+
+    //Añadir listeners al boton de ordenar tarjetas
+    let botonesOrdenar= document.querySelectorAll('.sort-btn');
+    botonesOrdenar[0].addEventListener('click',ordenarNombreAZ);
+    botonesOrdenar[1].addEventListener('click',ordenarNombreZA);
 }
 
 function crearTarjetas(filosofos) {
@@ -155,13 +160,44 @@ function ordenarNombreAZ() {
 
     // Eliminar totes les targetes de l'array 'tarjeta'
     // Completar codi
+    tarjetas.forEach(item =>{
+        item.remove();
+    });
+  
 
     // Afegir 'tarjetasOrdenadas' al contenidor de cards
-    let contenedor = document.querySelector('.cards-container');
     // Completar codi
+    let contenedor = document.querySelector('.cards-container');
+    tarjetasOrdenadas.forEach(item =>{
+        contenedor.append(item);
+    })
+
+    
+
 }
 
 function ordenarNombreZA() {
+    let tarjetas = Array.from(document.querySelectorAll('.card'));
+    let tarjetasOrdenInverso = tarjetas.sort((tarjetaA, tarjetaB) => {
+        let nombre1 = tarjetaA.querySelector('h3').innerHTML;
+        let nombre2 = tarjetaB.querySelector('h3').innerHTML;
+        return nombre2.localeCompare(nombre1);
+    });
+
+
+    // Eliminar totes les targetes de l'array 'tarjeta'
+    // Completar codi
+    tarjetas.forEach(item =>{
+        item.remove();
+    });
+  
+
+    // Afegir 'tarjetasOrdenadas' al contenidor de cards
+    // Completar codi
+    let contenedor = document.querySelector('.cards-container');
+    tarjetasOrdenInverso.forEach(item =>{
+        contenedor.append(item);
+    })
 }
 
 function crearNuevaTarjeta(event) {
