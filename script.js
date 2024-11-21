@@ -1,6 +1,7 @@
 window.onload = () => {
     // Crear tarjetas
     crearTarjetas(filosofos)
+    console.log(filosofos);
 
     // Crear handlers para los botones de control
     let botonCrearTarjeta = document.querySelector('.create-btn');
@@ -10,6 +11,14 @@ window.onload = () => {
     let botonesOrdenar= document.querySelectorAll('.sort-btn');
     botonesOrdenar[0].addEventListener('click',ordenarNombreAZ);
     botonesOrdenar[1].addEventListener('click',ordenarNombreZA);
+
+    //Añadir listener al botón de guardar tarjetas
+    let botonesGuardar= document.querySelector('.save-btn');
+    botonesGuardar.addEventListener('click', guardarTarjetas);
+
+    //Añadir listener al botón de cargar tarjetas
+    let botonesCargar= document.querySelector('.load-btn');
+    botonesCargar.addEventListener('click', cargarTarjetas);
 }
 
 function crearTarjetas(filosofos) {
@@ -213,7 +222,6 @@ function crearNuevaTarjeta(event) {
     nuevoFilosofo.corriente = document.querySelector('.create-card-form .corriente').value;
     nuevoFilosofo.arma= document.querySelector('.create-card-form .arma').value;
     nuevoFilosofo.habilidades = [];
-    let listahabilidades = ['Sabiduría','Oratoria','Lógica','Innovación'];
     let cardFormSkills = document.querySelectorAll('.create-card-form .skills');
 
     cardFormSkills.forEach((skill, index) => {
@@ -232,20 +240,45 @@ function parsearTarjetas(tarjetas){
     let filosofosParseados = [];
     for (let tarjeta of tarjetas){
         let filosofo = {};
-        filosofo.nombre = tarjeta.querySelector('.nombre').innerHTML;
+        filosofo.nombre = tarjeta.querySelector('.nombre').innerHTML;    
         filosofo.imagen = tarjeta.querySelector('.photo').src;
         filosofo.pais = {};
         // Completar funció
-        
-        let habilidades = tarjeta.querySelectorAll('.skill');
-        for (let habilidad of habilidades){
-            let habilidadParaGuardar = {};
+        filosofo.pais.nombre=tarjeta.querySelector('.pais').innerHTML;
+        let infoPais=tarjeta.querySelectorAll('.info-pais')[0];
+        filosofo.pais.bandera=infoPais.querySelector('img').src;
+        filosofo.corriente=tarjeta.querySelectorAll('.corriente')[0].innerHTML;
+        filosofo.arma=tarjeta.querySelector('.arma').innerHTML;
+
+        filosofo.habilidades=[];    
+
+        let habilidadesParaGuardar = tarjeta.querySelectorAll('.skill');
+        for (let habilidadParaGuardar of habilidadesParaGuardar){
+            let habilidad = {};
             // Completar funció
+            habilidad.habilidad=habilidadParaGuardar.querySelector('.skill-name').innerHTML;
+            
+            //extraemos el width de la barra habilidad)
+            let skillBar=habilidadParaGuardar.querySelector('.skill-bar');
+            let level=skillBar.querySelector('.level');
+            let nivel =level.style.cssText;
+            /*nos lo devuelve en tipo texto width: X%; tenemos que obtener solo el número
+            y dividirlo entre 25 para que sea un número del 1-4 igual que en la entrada*/
+            nivel=nivel.split(' ');
+            nivel=nivel[1];
+            nivel=nivel.split('%');
+            nivel=nivel[0]/25;
+            
+            habilidad.nivel=nivel;
+            
+            filosofo.habilidades.push(habilidad);
         }
+
         filosofosParseados.push(filosofo);
     }
     return filosofosParseados;
 }
+
 
 function guardarTarjetas(){
     let tarjetas = Array.from(document.querySelectorAll('.card'));
@@ -254,7 +287,13 @@ function guardarTarjetas(){
 
 
 function cargarTarjetas() {
+    filosofosRecuperados=JSON.parse(localStorage.getItem('tarjetas'));
+    console.log(Array.from(filosofosRecuperados));
+    crearTarjetas(filosofosRecuperados);
 }
+
+
+const listahabilidades = ['Sabiduría','Oratoria','Lógica','Innovación'];
 
 const filosofos = [
     {
