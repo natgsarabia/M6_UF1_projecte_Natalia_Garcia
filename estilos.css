@@ -311,3 +311,70 @@ footer {
     background-color: blue;
     transform: translateY(-2px);
 }
+
+/* Botón para duplicar tarjetas */
+.duplicate-btn {
+    margin-top: 2px;
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    background-color: orange;
+    color: #2e3a4f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1em;
+}
+
+.duplicate-btn:hover {
+    background-color: orange;
+    transform: translateY(-2px);
+}
+
+/* Botón para eliminar todas las tarjetas */
+.clean-btn {
+    margin-top: 2px;
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    background-color: red;
+    color: #2e3a4f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1em;
+}
+
+.clean-btn:hover {
+    background-color: red;
+    transform: translateY(-2px);
+}
+
+/* Botón para cambiar color texto todas las tarjetas */
+.changeColor{
+    margin-top: 2px;
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    background-color: rgb(237, 255, 118);
+    color: #2e3a4f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1em;
+}
+
+.changeColor:hover {
+    background-color:  rgb(237, 255, 118);
+    transform: translateY(-2px);
+}
+
+#changeColor{
+    border: none;
+    margin-top: 2px;
+    background-color: rgb(237, 255, 118);
+
+}

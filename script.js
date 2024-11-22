@@ -1,7 +1,6 @@
 window.onload = () => {
     // Crear tarjetas
     crearTarjetas(filosofos)
-    console.log(filosofos);
 
     // Crear handlers para los botones de control
     let botonCrearTarjeta = document.querySelector('.create-btn');
@@ -19,6 +18,19 @@ window.onload = () => {
     //Añadir listener al botón de cargar tarjetas
     let botonesCargar= document.querySelector('.load-btn');
     botonesCargar.addEventListener('click', cargarTarjetas);
+
+    //Añadir listener al botón de duplicar tarjetas
+    let botonesDuplicar= document.querySelector('.duplicate-btn');
+    botonesDuplicar.addEventListener('click', duplicarTarjetas);
+
+    //Añadir listener al botón de elimnar todas las tarjetas
+    let botonesLimpiar= document.querySelector('.clean-btn');
+    botonesLimpiar.addEventListener('click', limpiarPagina);
+
+    //Añadir listener al botón de cambiar color texto
+    let botonesCambiarColor= document.querySelector('#changeColor');
+    botonesCambiarColor.addEventListener('input', changeTextColor);
+    
 }
 
 function crearTarjetas(filosofos) {
@@ -288,10 +300,34 @@ function guardarTarjetas(){
 
 function cargarTarjetas() {
     filosofosRecuperados=JSON.parse(localStorage.getItem('tarjetas'));
-    console.log(Array.from(filosofosRecuperados));
     crearTarjetas(filosofosRecuperados);
 }
 
+//Funcionalidad extra, duplicar las tarjetas
+function duplicarTarjetas(){
+    guardarTarjetas();
+    tarjetas=JSON.parse(localStorage.getItem('tarjetas'));
+    crearTarjetas(tarjetas);
+}
+
+//Funcionalidad extra, eliminar todas las tarjetas
+function limpiarPagina(){
+    let eliminarTarjetas = Array.from(document.querySelectorAll('.card'));
+    eliminarTarjetas.forEach(item =>{
+        item.remove();
+    });
+    
+}
+
+//Funcionalidad extra, cambiar color texto tarjetas
+function changeTextColor(){
+    let textColor = this.value;
+    let tarjetas = document.querySelectorAll('.card'); 
+
+    tarjetas.forEach((tarjeta) => {
+        tarjeta.style.color = textColor;
+    });
+}
 
 const listahabilidades = ['Sabiduría','Oratoria','Lógica','Innovación'];
 
